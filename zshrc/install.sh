@@ -16,8 +16,11 @@ fi
 # get the full path of the folder where this script is located
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# source aliases.sh and functions folder to $HOME/.zshrc
-sed -i '1i\
-source '$CURRENT_DIR'/aliases.sh
-source '$CURRENT_DIR'/functions/
-' "$HOME/.zshrc"
+# make all scripts in bin folder executable
+chmod +x $CURRENT_DIR/bin/*
+
+sed -i "1i\
+# From DOTFILES\n\
+source '$CURRENT_DIR/aliases.sh'\n\
+export PATH=\$PATH:$CURRENT_DIR/bin/\
+" "$HOME/.zshrc"
